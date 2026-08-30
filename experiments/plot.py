@@ -64,6 +64,7 @@ PROFILE_ALIASES: Dict[str, str] = {
 
 AUTO_COMPARE_VIEWS_EXPERIMENTS = {
     "02-memory-model",
+    "04-memory-model",
     "10-fig3new",
 }
 

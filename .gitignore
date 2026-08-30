@@ -1,5 +1,6 @@
 TODO.md
 no_upload/
+.matplotlib-cache/
 raw-results/
 dependencies/
 .zsim-env

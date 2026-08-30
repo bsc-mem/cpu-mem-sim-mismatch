@@ -17,7 +17,7 @@ KEY_FIELDS = ("type", "rd_percentage", "pause")
 STATIC_CONFIG = {
     "MEM_FREQ": "1.3333333",
     "MEM_MAX_CHANNELS": "6",
-    "PLOT_MAX_BW_LABEL_Y": "146",
+    "PLOT_MAX_BW_LABEL_Y": "211",
 }
 
 VIEW_SPECS = {
@@ -27,14 +27,16 @@ VIEW_SPECS = {
         "latency_field": "latency_core_ptr_chase",
         "label": "Application view",
         "color": "#d62728",
+        "cmap": "Reds",
         "linestyle": "-",
     },
     "interface": {
         "aliases": {"interface", "mem", "memory-interface", "zsim-mem"},
         "bandwidth_field": "bandwidth_bytes_per_second",
         "latency_field": "latency_mem_ptr_chase",
-        "label": "Memory interface view",
+        "label": "Memory-interface view",
         "color": "#1f77b4",
+        "cmap": "Blues",
         "linestyle": "-",
     },
     "mem-sim": {
@@ -43,6 +45,7 @@ VIEW_SPECS = {
         "latency_field": "latency_mem_ptr_chase_ram",
         "label": "Memory simulator view",
         "color": "#2ca02c",
+        "cmap": "Greens",
         "linestyle": ":",
     },
 }
@@ -114,11 +117,11 @@ def cfg_float(config: dict[str, str], key: str) -> float:
     return float(str(config[key]).strip().strip('"'))
 
 
-def calculate_color(rd_value: int):
+def calculate_color(rd_value: int, cmap_name: str = "Blues"):
     try:
-        cmap = matplotlib.colormaps.get_cmap("Blues")
+        cmap = matplotlib.colormaps.get_cmap(cmap_name)
     except AttributeError:
-        cmap = matplotlib.cm.get_cmap("Blues")
+        cmap = matplotlib.cm.get_cmap(cmap_name)
 
     min_value = 0.2
     max_value = 1.0
@@ -126,6 +129,10 @@ def calculate_color(rd_value: int):
     rw_reverse = 75.0 + 75.0 - rd_value
     c = (rw_reverse - 50.0) / factor + min_value
     return cmap(c)
+
+
+def view_color(rd_value: int, view_name: str):
+    return calculate_color(rd_value, VIEW_SPECS[view_name]["cmap"])
 
 
 def view_points(
@@ -269,19 +276,16 @@ def make_plot(
     rhs_min_bw = None
 
     for rd in all_rds:
-        alpha = 0.35 + 0.5 * (rd / 100.0)
-        alpha = min(0.9, max(0.35, alpha))
         if rd in lhs_curves:
             bws, lats = lhs_curves[rd]
 
             ax.plot(
                 bws,
                 lats,
-                color=lhs_spec["color"],
+                color=view_color(rd, lhs_view),
                 linestyle=lhs_spec["linestyle"],
                 linewidth=1.0,
                 marker=None,
-                alpha=alpha,
                 label=lhs_spec["label"] if not plotted_lhs else "_nolegend_",
             )
 
@@ -301,11 +305,10 @@ def make_plot(
             ax.plot(
                 bws,
                 lats,
-                color=rhs_spec["color"],
+                color=view_color(rd, rhs_view),
                 linestyle=rhs_spec["linestyle"],
                 linewidth=1.0,
                 marker=None,
-                alpha=alpha,
                 label=rhs_spec["label"] if not plotted_rhs else "_nolegend_",
             )
 
@@ -351,16 +354,17 @@ def make_plot(
         horizontalalignment="right",
         fontsize=36,
     )
-    ax.set_xlim(0, 200)
-    ax.set_ylim(0, 160)
+    ax.set_xlim(0, max_bw*1.05)
+    ax.set_ylim(0, 230)
     ax.set_xlabel("Used Memory bandwidth [GB/s]", fontsize=38)
     ax.set_ylabel("Memory access latency [ns]", fontsize=38)
     ax.tick_params(axis="x", labelsize=38)
     ax.tick_params(axis="y", labelsize=38)
     
+    legend_rd = 30
     legend_handles = [
-        Line2D([0], [0], color=rhs_spec["color"], linewidth=2.8, linestyle="-", label=rhs_spec["label"]),
-        Line2D([0], [0], color=lhs_spec["color"], linewidth=2.8, linestyle="-", label=lhs_spec["label"]),
+        Line2D([0], [0], color=view_color(legend_rd, rhs_view), linewidth=2.8, linestyle="-", label=rhs_spec["label"]),
+        Line2D([0], [0], color=view_color(legend_rd, lhs_view), linewidth=2.8, linestyle="-", label=lhs_spec["label"]),
     ]
 
     ax.legend(
@@ -389,7 +393,7 @@ def main() -> int:
     if len(sys.argv) not in (2, 4):
         print(
             "usage: compare-views.sh <experiment-or-csv> [<lhs-view> <rhs-view>]\n"
-            "example: compare-views.sh 04-model-correct core interface",
+            "example: compare-views.sh 04-memory-model core interface",
             file=sys.stderr,
         )
         return 1

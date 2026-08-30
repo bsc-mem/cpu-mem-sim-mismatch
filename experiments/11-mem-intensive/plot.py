@@ -31,18 +31,18 @@ ACTUAL_HARDWARE = {
 }
 PLOT_STAGES = (
     "01-baseline",
-    "02-baseline-correct-model",
-    "03-baseline-clock-uncomment",
-    "04-correct-interface",
+    "02-clock-scaling",
+    "03-correct-freq",
+    "04-memory-model",
     "05-address-mapping",
     "06-noc",
     "07-prefetcher",
 )
 PLOT_STAGE_LABELS = (
     ("Initial\nsimulation\ninfrastructure", "Figure 2"),
-    ("Corrected\nmemory\nmodel", "Figure 6"),
     ("Clock-scaling", "Figure 7"),
     ("FreqRatio rounding\nerror", "Figure 8"),
+    ("Corrected\nmemory\nmodel", "Figure 6"),
     ("Corrected\naddress\nmapping", "Figure 9(a)"),
     ("Realistic\nnetwork on\nchip (NoC)", "Figure 9(b)"),
     ("Stride\nprefetchers\nin caches", "Figure 9(c)"),

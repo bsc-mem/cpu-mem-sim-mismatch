@@ -99,6 +99,9 @@ TRAFFIC_GEN_BIN="$BENCH_ROOT/traffic_gen/traffic_gen.x"
 # their experiment configs select the active memory backend at runtime.
 declare -A EXPERIMENT_ZSIM_VARIANT=(
   [01-baseline]="ramulator"
+  [02-clock-scaling]="ramulator"
+  [03-correct-freq]="ramulator"
+  [04-memory-model]="ramulator"
   [02-memory-model]="ramulator"
   [03-clock-scaling]="ramulator"
   [04-correct-freq]="ramulator"
