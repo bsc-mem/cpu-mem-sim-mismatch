@@ -1,23 +1,34 @@
-# CPU and Memory Simulators: What if the Memory Models Simply don’t Match?
+# Integration, Enhancements and Evaluation of Memory Simulators
 
-This is the artifact repository of **“CPU and Memory Simulators: What if the Memory Models Simply Don’t Match?”**
+This is the artifact repository of **“Integration, Enhancements and Evaluation of Memory Simulators.”**
 
 This repository provides the modified ZSim source code and the Ramulator, Ramulator 2, DRAMsim3, and DRAMSys integrations evaluated in the paper. It also includes benchmark source code, processed results, and scripts for reproducing and comparing the experiments.
 
 ## Paper Reference
 
-**CPU and Memory Simulators: What if the Memory Models Simply don’t Match?**
+**Integration, Enhancements and Evaluation of Memory Simulators**
 
 Authors:
 
 - Pouya Esmaili-Dokht — Barcelona Supercomputing Center; Universitat Politècnica de Catalunya
 - Arash Yadegari — Barcelona Supercomputing Center; Sharif University of Technology
 - Victor Xirau — Barcelona Supercomputing Center
-- Julian Pavon Rivera — Barcelona Supercomputing Center
+- Julian Pavon — Barcelona Supercomputing Center
 - Hamid Sarbazi-Azad — Sharif University of Technology; IPM
-- Adrian Cristal — Barcelona Supercomputing Center; Universitat Politècnica de Catalunya
+- Adrián Cristal — Barcelona Supercomputing Center; Universitat Politècnica de Catalunya
 - Eduard Ayguadé — Universitat Politècnica de Catalunya; Barcelona Supercomputing Center
 - Petar Radojković — Barcelona Supercomputing Center
+
+Citation:
+
+```bibtex
+@INPROCEEDINGS{esmaili:interface,
+  author={Esmaili-Dokht, Pouya and Yadegari, Arash and Xirau, Victor and Pavon, Julian and Sarbazi-Azad, Hamid and Cristal, Adrián and Ayguadé, Eduard and Radojković, Petar},
+  booktitle={IEEE International Symposium on Workload Characterization (IISWC)},
+  title={{Integration, Enhancements and Evaluation of Memory Simulators}},
+  year={2026}
+}
+```
 
 Artifact archive: [10.5281/zenodo.21760831](https://doi.org/10.5281/zenodo.21760831). This is the Zenodo concept DOI, which resolves to the latest published artifact version; direct raw-data links below identify files in a specific version record.
 
