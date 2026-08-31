@@ -27,8 +27,9 @@ The committed outputs follow the three-view terminology used in the paper:
 - `bandwidth_latency_zsim_mem.*`: memory interface view
 - `bandwidth_latency_zsim_core.*`: application view
 
-Raw results for stages 01 through 10 are hosted on Zenodo. Experiment 00 keeps
-its raw data in Git, and Experiment 11 generates its 50 simulation points
+Published raw results for stages 01 and 05 through 10 are hosted on Zenodo.
+Archives for the reordered stages 02 through 04 are pending. Experiment 00
+keeps its raw data in Git, and Experiment 11 generates its 50 simulation points
 locally.
 
 ## Raw Results
@@ -37,9 +38,9 @@ locally.
 | :--- | :--- | :--- |
 | `00-damov-native` | [`00-damov-native/test-raw/`](00-damov-native/test-raw/) | `N/A` |
 | `01-baseline` | [Download](https://zenodo.org/records/21760832/files/01-baseline.zip?download=1) | `38f1cf9f9a1f6f3c2adaec688fabcf4d` |
-| `02-memory-model` | [Download](https://zenodo.org/records/21760832/files/02-memory-model.zip?download=1) | `88429850cb804319a6528e0c0735d7fa` |
-| `03-clock-scaling` | [Download](https://zenodo.org/records/21760832/files/03-clock-scaling.zip?download=1) | `4ce964d0cb5bbb82a378e3939dac1260` |
-| `04-correct-freq` | [Download](https://zenodo.org/records/21760832/files/04-correct-freq.zip?download=1) | `275fea55aeaca6edf0ca918d2a19eaac` |
+| `02-clock-scaling` | `TODO: publish reordered-stage raw archive` | `TODO` |
+| `03-correct-freq` | `TODO: publish reordered-stage raw archive` | `TODO` |
+| `04-memory-model` | `TODO: publish reordered-stage raw archive` | `TODO` |
 | `05-address-mapping` | [Download](https://zenodo.org/records/21760832/files/05-address-mapping.zip?download=1) | `74bb3d8d63cf43ddd06929b9dc27a7f9` |
 | `06-noc` | [Download](https://zenodo.org/records/21760832/files/06-noc.zip?download=1) | `5a6fdeb0af978f8eaf4f355e46453a54` |
 | `07-prefetcher` | [Download](https://zenodo.org/records/21760832/files/07-prefetcher.zip?download=1) | `1e4fd36b3c25af7603f2e817c2448980` |
@@ -87,18 +88,23 @@ experiments/01-baseline/test-raw/
 Before generating new run directories, `runner.sh` removes any existing `test-raw/measurment_*` directories for the selected stage.
 
 `00-damov-native` uses a dedicated runner behind the same repository-level
-entrypoint. Build it with `./setup.sh --build-damov`, then run:
+entrypoint. Build it with `./setup.sh --build-damov`, then run and plot it:
 
 ```bash
 ./experiments/runner.sh 00-damov-native
+./experiments/plot.py experiments/00-damov-native/test-raw \
+  --config-dir experiments/00-damov-native
 ```
+
+The three generated views correspond to the original-DAMOV evaluation in
+Appendix A, Figure 13.
 
 `setup.sh` builds isolated Ramulator and Ramulator2 ZSim variants. The reference table in `runner.sh` selects the appropriate binary automatically: `08-portability-ramulator2` uses the Ramulator2 variant, while the other staged experiments use the default Ramulator variant.
 
 Experiment 11 is available through the same entrypoint. It runs all of its
 correction and portability stages sequentially. No raw-results download is
 needed because the dataset contains only five benchmark points per stage across
-ten unique stages, for 50 simulation points in total. Figure 9 uses seven
+ten unique stages, for 50 simulation points in total. Figure 10 uses seven
 correction stages; Figure 11e reuses the final Ramulator stage and adds the
 three portability stages.
 
@@ -150,7 +156,7 @@ The committed paper figures in `experiments/<stage>/figures/` are **not** touche
 Use `compare-results.sh` to quantify the delta between two stages from their committed (or freshly generated) `processed/bandwidth_latency.csv`:
 
 ```bash
-./scripts/compare-results.sh 01-baseline 04-correct-freq
+./scripts/compare-results.sh 01-baseline 04-memory-model
 ```
 
 You can also point it at a freshly generated CSV:
@@ -158,7 +164,7 @@ You can also point it at a freshly generated CSV:
 ```bash
 ./scripts/compare-results.sh \
   test-output/01-baseline/processed/bandwidth_latency.csv \
-  test-output/04-correct-freq/processed/bandwidth_latency.csv
+  test-output/04-memory-model/processed/bandwidth_latency.csv
 ```
 
 ## Experiment Gallery
@@ -172,33 +178,33 @@ Paper figure: Figure 2
 |:---:|:---:|:---:|
 | <img src="01-baseline/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="01-baseline/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="01-baseline/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
 
-### `02-memory-model`
+### `02-clock-scaling`
 
-Paper figure: Figure 6  
-
-| Memory simulator view | Memory interface view | Application view |
-|:---:|:---:|:---:|
-| <img src="02-memory-model/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="02-memory-model/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="02-memory-model/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
-
-### `03-clock-scaling`
-
-Paper figure: Figure 7  
+Paper figure: Figure 3
 
 | Memory simulator view | Memory interface view | Application view |
 |:---:|:---:|:---:|
-| <img src="03-clock-scaling/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="03-clock-scaling/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="03-clock-scaling/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
+| <img src="02-clock-scaling/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="02-clock-scaling/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="02-clock-scaling/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
 
-### `04-correct-freq`
+### `03-correct-freq`
+
+Paper figure: Figure 4
+
+| Memory simulator view | Memory interface view | Application view |
+|:---:|:---:|:---:|
+| <img src="03-correct-freq/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="03-correct-freq/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="03-correct-freq/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
+
+### `04-memory-model`
 
 Paper figure: Figure 8  
 
 | Memory simulator view | Memory interface view | Application view |
 |:---:|:---:|:---:|
-| <img src="04-correct-freq/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="04-correct-freq/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="04-correct-freq/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
+| <img src="04-memory-model/figures/pngs/bandwidth_latency_ramulator.png" height="220"> | <img src="04-memory-model/figures/pngs/bandwidth_latency_zsim_mem.png" height="220"> | <img src="04-memory-model/figures/pngs/bandwidth_latency_zsim_core.png" height="220"> |
 
 ### `05-address-mapping`
 
-Paper figure: Figure 10a
+Paper figure: Figure 9a
 
 | Memory simulator view | Memory interface view | Application view |
 |:---:|:---:|:---:|
@@ -206,7 +212,7 @@ Paper figure: Figure 10a
 
 ### `06-noc`
 
-Paper figure: Figure 10b
+Paper figure: Figure 9b
 
 | Memory simulator view | Memory interface view | Application view |
 |:---:|:---:|:---:|
@@ -214,7 +220,7 @@ Paper figure: Figure 10b
 
 ### `07-prefetcher`
 
-Paper figure: Figure 10c
+Paper figure: Figure 9c
 
 | Memory simulator view | Memory interface view | Application view |
 |:---:|:---:|:---:|
@@ -249,12 +255,12 @@ Committed views: memory interface and application
 
 ### `11-mem-intensive`
 
-Paper figures: Figure 9 and Figure 11e
+Paper figures: Figure 10 and Figure 11e
 
 The raw measurements are generated locally. This experiment requires five
 benchmark points for each of ten unique stages—50 simulation points total—so a
 separate raw-data archive is unnecessary.
 
 - Processed data: [`11-mem-intensive/processed/mem_intensive.csv`](11-mem-intensive/processed/mem_intensive.csv)
-- Figure 9: [`11-mem-intensive/figures/mem_intensive.pdf`](11-mem-intensive/figures/mem_intensive.pdf)
+- Figure 10: [`11-mem-intensive/figures/mem_intensive.pdf`](11-mem-intensive/figures/mem_intensive.pdf)
 - Figure 11e: [`11-mem-intensive/figures/mem_intensive_portability.pdf`](11-mem-intensive/figures/mem_intensive_portability.pdf)

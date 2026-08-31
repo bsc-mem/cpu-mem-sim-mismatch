@@ -4,12 +4,12 @@ This experiment runs pointer chase and the STREAM Copy, Scale, Add, and Triad
 kernels across the interface-correction stages and memory-simulator portability
 stages. Its processed results support two paper figures:
 
-- Figure 9 compares the cumulative interface-correction stages.
+- Figure 10 compares the cumulative interface-correction stages.
 - Figure 11e compares Ramulator, Ramulator2, DRAMsim3, and DRAMSys.
 
 The raw measurements are generated locally rather than downloaded. There are
 only five benchmark points per stage across ten unique stages, for 50
-simulation points in total. Figure 9 uses the seven correction stages. Figure
+simulation points in total. Figure 10 uses the seven correction stages. Figure
 11e reuses the final Ramulator stage and adds the three portability stages.
 
 ## Run
@@ -43,5 +43,5 @@ This command regenerates the processed CSV and both figures.
 Outputs:
 
 - [`processed/mem_intensive.csv`](processed/mem_intensive.csv)
-- [`figures/mem_intensive.pdf`](figures/mem_intensive.pdf) — Figure 9
+- [`figures/mem_intensive.pdf`](figures/mem_intensive.pdf) — Figure 10
 - [`figures/mem_intensive_portability.pdf`](figures/mem_intensive_portability.pdf) — Figure 11e

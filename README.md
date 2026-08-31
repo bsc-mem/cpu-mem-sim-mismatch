@@ -19,6 +19,8 @@ Authors:
 - Eduard Ayguadé — Universitat Politècnica de Catalunya; Barcelona Supercomputing Center
 - Petar Radojković — Barcelona Supercomputing Center
 
+Artifact archive: [10.5281/zenodo.21760831](https://doi.org/10.5281/zenodo.21760831). This is the Zenodo concept DOI, which resolves to the latest published artifact version; direct raw-data links below identify files in a specific version record.
+
 ## Table of Contents
 
 - [Paper Reference](#paper-reference)
@@ -37,7 +39,7 @@ The repository is organized so that the source code is shared once, but is highl
 
 | Directory           | Purpose & Documentation                                                                                                                                                                                                                                                                              |
 | :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `simulator-source/` | **The Simulators.** Contains the modified ZSim source and the Ramulator, Ramulator2, DRAMsim3, and DRAMSys source trees used by the artifact. <br>-> _See [`simulator-source/README.md`](simulator-source/README.md) for dependency and build details._                            |
+| `simulator-source/` | **The Simulators.** Contains the modified ZSim source and the Ramulator, Ramulator2, DRAMsim3, and DRAMSys source trees used by the artifact. <br>-> _See [`simulator-source/README.md`](simulator-source/README.md) for dependency and build details._                                              |
 | `benchmarks/`       | **The Workloads.** Contains the pointer-chasing and traffic-generation benchmarks used to generate bandwidth-latency curves.                                                                                                                                                                         |
 | `experiments/`      | **The Configurations & Results.** One folder per paper stage. Runnable stages include `sb.cfg`. Committed outputs, when present, live under `processed/` and `figures/`. <br>-> _See [`experiments/README.md`](experiments/README.md) for details on the execution flow and shared run entrypoints._ |
 | `scripts/`          | **The Automation.** Repository-level helpers for environment setup, benchmark builds, result processing, and comparison. <br>-> _See [`scripts/README.md`](scripts/README.md) for the script catalog._                                                                                               |
@@ -107,17 +109,17 @@ The paper evaluates the impact of interface details through a sequence of cumula
 
 ### 3.1. Interface Refinement Steps
 
-| Step                                                    | Description / Focus                                                            | Figure               |
-| :------------------------------------------------------ | :----------------------------------------------------------------------------- | :------------------- |
-| [`00-damov-native`](experiments/00-damov-native/)       | Native DAMOV reference, dispatched to its dedicated runner                     | N/A                  |
-| [`01-baseline`](experiments/01-baseline/)               | Base simulator coupling                                                        | Figure 2b, 2c and 2d |
-| [`02-memory-model`](experiments/02-memory-model/)       | Follow-up interface configuration                                              | Figure 6             |
-| [`03-clock-scaling`](experiments/03-clock-scaling/)     | Follow-up frequency-divider configuration                                      | Figure 7             |
-| [`04-correct-freq`](experiments/04-correct-freq/)       | Corrected-frequency configuration                                              | Figure 8             |
-| [`05-address-mapping`](experiments/05-address-mapping/) | Physical address mapping accuracy                                              | Figure 10a           |
-| [`06-noc`](experiments/06-noc/)                         | Realistic Network-on-Chip refinement                                           | Figure 10b           |
-| [`07-prefetcher`](experiments/07-prefetcher/)           | Final Ramulator stage with prefetcher                                          | Figure 10c           |
-| [`11-mem-intensive`](experiments/11-mem-intensive/)     | Pointer-chase and STREAM results across correction stages and memory simulators | Figures 9 and 11e    |
+| Step                                                    | Description / Focus                                                             | Figure               |
+| :------------------------------------------------------ | :------------------------------------------------------------------------------ | :------------------- |
+| [`00-damov-native`](experiments/00-damov-native/)       | Native DAMOV reference, dispatched to its dedicated runner                      | Figure 13            |
+| [`01-baseline`](experiments/01-baseline/)               | Base simulator coupling                                                         | Figure 2b, 2c and 2d |
+| [`02-clock-scaling`](experiments/02-clock-scaling/)     | Enable clock scaling at the memory-simulator interface                          | Figure 3             |
+| [`03-correct-freq`](experiments/03-correct-freq/)       | Remove the integer frequency-ratio rounding error                               | Figure 4             |
+| [`04-memory-model`](experiments/04-memory-model/)       | Correct the delayed-response memory-model mismatch                              | Figure 8             |
+| [`05-address-mapping`](experiments/05-address-mapping/) | Physical address mapping accuracy                                               | Figure 9a            |
+| [`06-noc`](experiments/06-noc/)                         | Realistic Network-on-Chip refinement                                            | Figure 9b            |
+| [`07-prefetcher`](experiments/07-prefetcher/)           | Final Ramulator stage with prefetcher                                           | Figure 9c            |
+| [`11-mem-intensive`](experiments/11-mem-intensive/)     | Pointer-chase and STREAM results across correction stages and memory simulators | Figures 10 and 11e   |
 
 ### 3.2. Portability Evaluation
 
@@ -153,7 +155,7 @@ one result per benchmark and stage, so use its plotter:
 ```
 
 `experiments/11-mem-intensive/plot.py` writes the processed CSV and generates
-Figures 9 and 11e. `experiments/plot.py` expects the `measurment_*` sweep layout
+Figures 10 and 11e. `experiments/plot.py` expects the `measurment_*` sweep layout
 used by experiments 01 through 10.
 
 > **Reproducibility note:** Results from a new run may not exactly match the paper
@@ -186,7 +188,7 @@ A key contribution of the paper is analyzing the delta between interface correct
 To compare the output of two different stages (e.g., comparing the baseline against the corrected model), use the `compare-results.sh` script:
 
 ```bash
-./scripts/compare-results.sh 01-baseline 04-correct-freq
+./scripts/compare-results.sh 01-baseline 04-memory-model
 ```
 
 It can also compare two explicit CSV files (for example from `test-output/.../processed/bandwidth_latency.csv`).
@@ -195,7 +197,7 @@ It can also compare two explicit CSV files (for example from `test-output/.../pr
 
 ## 5. Raw Data Policy
 
-The repository contains the configurations, scripts, processed CSV files, and figures needed to inspect each stage. Except for experiment 00, raw simulator output is distributed as a separate archive for each stage so that the large trace files do not have to be stored in Git.
+The repository contains the configurations, scripts, processed CSV files, and figures needed to inspect each stage. Except for experiment 00, raw simulator output is distributed separately so that the large trace files do not have to be stored in Git.
 
 ### 5.1. Raw Results
 
@@ -203,9 +205,9 @@ The repository contains the configurations, scripts, processed CSV files, and fi
 | :-------------------------- | :-------------------------------------------------------------------------------------- | :--------------------------------- |
 | `00-damov-native`           | [`experiments/00-damov-native/test-raw/`](experiments/00-damov-native/test-raw/)        | `N/A`                              |
 | `01-baseline`               | [Download](https://zenodo.org/records/21760832/files/01-baseline.zip?download=1)        | `38f1cf9f9a1f6f3c2adaec688fabcf4d` |
-| `02-memory-model`           | [Download](https://zenodo.org/records/21760832/files/02-memory-model.zip?download=1)    | `88429850cb804319a6528e0c0735d7fa` |
-| `03-clock-scaling`          | [Download](https://zenodo.org/records/21760832/files/03-clock-scaling.zip?download=1)   | `4ce964d0cb5bbb82a378e3939dac1260` |
-| `04-correct-freq`           | [Download](https://zenodo.org/records/21760832/files/04-correct-freq.zip?download=1)    | `275fea55aeaca6edf0ca918d2a19eaac` |
+| `02-clock-scaling`          | `TODO: publish reordered-stage raw archive`                                             | `TODO`                             |
+| `03-correct-freq`           | `TODO: publish reordered-stage raw archive`                                             | `TODO`                             |
+| `04-memory-model`           | `TODO: publish reordered-stage raw archive`                                             | `TODO`                             |
 | `05-address-mapping`        | [Download](https://zenodo.org/records/21760832/files/05-address-mapping.zip?download=1) | `74bb3d8d63cf43ddd06929b9dc27a7f9` |
 | `06-noc`                    | [Download](https://zenodo.org/records/21760832/files/06-noc.zip?download=1)             | `5a6fdeb0af978f8eaf4f355e46453a54` |
 | `07-prefetcher`             | [Download](https://zenodo.org/records/21760832/files/07-prefetcher.zip?download=1)      | `1e4fd36b3c25af7603f2e817c2448980` |
@@ -226,9 +228,9 @@ source .zsim-env
 ```
 
 Experiment 11 uses the same shared runner interface and generates paper Figures
-9 and 11e. Its raw data is produced locally rather than downloaded: the
+10 and 11e. Its raw data is produced locally rather than downloaded: the
 experiment needs only five benchmark points for each of ten unique stages, or
-50 simulation points in total. The seven correction stages feed Figure 9, and
+50 simulation points in total. The seven correction stages feed Figure 10, and
 Figure 11e reuses the final Ramulator stage alongside three portability stages.
 
 ```bash

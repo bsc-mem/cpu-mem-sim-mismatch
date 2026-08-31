@@ -40,11 +40,11 @@ PLOT_STAGES = (
 )
 PLOT_STAGE_LABELS = (
     ("Initial\nsimulation\ninfrastructure", "Figure 2"),
-    ("Clock-scaling", "Figure 7"),
-    ("FreqRatio rounding\nerror", "Figure 8"),
-    ("Corrected\nmemory\nmodel", "Figure 6"),
+    ("Clock-scaling", "Figure 3"),
+    ("FreqRatio\nrounding error", "Figure 4"),
+    ("Corrected\nmemory\nmodel", "Figure 8"),
     ("Corrected\naddress\nmapping", "Figure 9(a)"),
-    ("Realistic\nnetwork on\nchip (NoC)", "Figure 9(b)"),
+    ("Realistic\nnetwork on\nchip (NOC)", "Figure 9(b)"),
     ("Stride\nprefetchers\nin caches", "Figure 9(c)"),
 )
 PORTABILITY_STAGES = (
@@ -56,6 +56,9 @@ PORTABILITY_STAGES = (
 DEFAULT_CSV_NAME = "mem_intensive.csv"
 DEFAULT_FIGURE_NAME = "mem_intensive.pdf"
 DEFAULT_PORTABILITY_FIGURE_NAME = "mem_intensive_portability.pdf"
+PAPER_FONT_FAMILY = ("Arial", "Liberation Sans", "Arimo", "sans-serif")
+PAPER_COLORS = ("#f1f6ff", "#bdcae2", "#74aacf", "#2b8cc0", "#045a8d")
+PAPER_GRID_COLOR = "#d9d9d9"
 
 FREQUENCY_RE = re.compile(r"^\s*frequency\s*=\s*([0-9]+(?:\.[0-9]+)?)\s*;")
 CORE_RE = re.compile(r"^\s*[A-Za-z0-9_.-]+-(\d+):\s+# Core stats\s*$")
@@ -249,6 +252,13 @@ def create_plot(csv_path: Path, figure_path: Path) -> None:
         import matplotlib
 
         matplotlib.use("Agg")
+        matplotlib.rcParams.update(
+            {
+                "font.family": PAPER_FONT_FAMILY,
+                "pdf.fonttype": 42,
+                "ps.fonttype": 42,
+            }
+        )
         import matplotlib.pyplot as plt
     except ImportError as error:
         raise RuntimeError("plotting requires matplotlib") from error
@@ -262,7 +272,7 @@ def create_plot(csv_path: Path, figure_path: Path) -> None:
 
     benchmarks = ("stream-copy", "stream-scale", "stream-add", "stream-triad", "ptr_chase")
     legend_labels = ("STREAM-Copy", "STREAM-Scale", "STREAM-Add", "STREAM-Triad", "Pointer-chase")
-    colors = ("#e8eef5", "#b8c9dd", "#75a7c7", "#2d86b1", "#00618e")
+    colors = PAPER_COLORS
     group_centers = list(range(len(PLOT_STAGES)))
     bar_width = 0.155
 
@@ -313,13 +323,19 @@ def create_plot(csv_path: Path, figure_path: Path) -> None:
     for tick_label in axis.get_yticklabels():
         tick_label.set_fontweight("bold")
     axis.set_ylabel(
-        "Actual vs. Simulated\nPerformance [%]",
+        "Actual vs. Simulated\nperformance [%]",
         fontsize=11.5,
         fontweight="bold",
         labelpad=8,
     )
     axis.set_xticks([])
-    axis.grid(axis="y", color="#d5d5d5", linestyle=(0, (4, 3)), linewidth=0.8, zorder=0)
+    axis.grid(
+        axis="y",
+        color=PAPER_GRID_COLOR,
+        linestyle=(0, (4, 3)),
+        linewidth=0.8,
+        zorder=0,
+    )
     axis.axhline(0, color="black", linestyle=(0, (1, 2)), linewidth=0.8, zorder=4)
     for spine in axis.spines.values():
         spine.set_visible(False)
@@ -366,8 +382,8 @@ def create_plot(csv_path: Path, figure_path: Path) -> None:
         )
 
     bracket_y = -0.70
-    bracket_left = group_centers[2] - 0.45
-    bracket_right = group_centers[3] + 0.45
+    bracket_left = group_centers[1] - 0.45
+    bracket_right = group_centers[2] + 0.45
     axis.plot(
         (bracket_left, bracket_right),
         (bracket_y, bracket_y),
@@ -439,6 +455,13 @@ def create_portability_plot(csv_path: Path, figure_path: Path) -> None:
         import matplotlib
 
         matplotlib.use("Agg")
+        matplotlib.rcParams.update(
+            {
+                "font.family": PAPER_FONT_FAMILY,
+                "pdf.fonttype": 42,
+                "ps.fonttype": 42,
+            }
+        )
         import matplotlib.pyplot as plt
     except ImportError as error:
         raise RuntimeError("plotting requires matplotlib") from error
@@ -456,7 +479,7 @@ def create_portability_plot(csv_path: Path, figure_path: Path) -> None:
 
     benchmarks = ("stream-copy", "stream-scale", "stream-add", "stream-triad", "ptr_chase")
     legend_labels = ("STREAM-Copy", "STREAM-Scale", "STREAM-Add", "STREAM-Triad", "Pointer-chase")
-    colors = ("#e8eef5", "#b8c9dd", "#75a7c7", "#2d86b1", "#00618e")
+    colors = PAPER_COLORS
     group_centers = list(range(len(PORTABILITY_STAGES)))
     bar_width = 0.16
 
@@ -519,7 +542,13 @@ def create_portability_plot(csv_path: Path, figure_path: Path) -> None:
         fontweight="bold",
         labelpad=7,
     )
-    axis.grid(axis="y", color="#d5d5d5", linestyle=(0, (4, 3)), linewidth=0.8, zorder=0)
+    axis.grid(
+        axis="y",
+        color=PAPER_GRID_COLOR,
+        linestyle=(0, (4, 3)),
+        linewidth=0.8,
+        zorder=0,
+    )
     axis.axhline(0, color="#bdbdbd", linewidth=0.8, zorder=2)
     for spine in axis.spines.values():
         spine.set_visible(False)

@@ -140,7 +140,7 @@ In the original implementation, enabling this required manually commenting and u
 ramulator/ramulator-configs/DDR4-config-MN4-skylake.cfg
 ```
 
-The Figure 10a address-mapping stage selects this config file, enabling
+The Figure 9a address-mapping stage selects this config file, enabling
 Skylake-specific address mapping through configuration rather than source
 modification.
 

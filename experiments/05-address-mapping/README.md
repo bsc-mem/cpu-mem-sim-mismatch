@@ -1,10 +1,10 @@
 # 05-address-mapping
 
-This stage captures the Figure 10a experiment, which adds the Skylake-oriented physical address mapping on top of the corrected Figure 8 interface.
+This stage captures the Figure 9a experiment, which adds the Skylake-oriented physical address mapping on top of the corrected Figure 8 interface.
 
 ## Paper Figure
 
-This stage corresponds to Figure 10a in the paper.
+This stage corresponds to Figure 9a in the paper.
 
 ## Public Contents
 
@@ -13,7 +13,7 @@ This stage corresponds to Figure 10a in the paper.
 - `processed/`
   The committed processed CSV used for comparisons and inspection.
 - `figures/`
-  The committed PDF and PNG figure outputs from the authoritative Figure 10a experiment drop.
+  The committed PDF and PNG figure outputs from the authoritative Figure 9a experiment drop.
 
 Use the shared experiment entrypoints in `../runner.sh`, `../run-one.sh`, and `../plot.py`.
 
@@ -34,7 +34,7 @@ This stage isolates the effect of the Intel Skylake address mapping after the in
 
 ## Reproduction Note
 
-The authoritative Figure 10a source drop carries the same top-level `sb.cfg` shape as Figure 8. The artifact exposes the actual stage change through `../../simulator-source/ramulator/ramulator-configs/DDR4-config-MN4-skylake.cfg`, which enables `skylake_address_mapping = on` in the shared Ramulator source tree.
+The authoritative Figure 9a source drop carries the same top-level `sb.cfg` shape as Figure 8. The artifact exposes the actual stage change through `../../simulator-source/ramulator/ramulator-configs/DDR4-config-MN4-skylake.cfg`, which enables `skylake_address_mapping = on` in the shared Ramulator source tree.
 
 ## Raw Results
 

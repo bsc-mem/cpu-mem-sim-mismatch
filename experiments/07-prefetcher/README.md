@@ -4,7 +4,7 @@ This stage captures the final Ramulator-backed platform with address mapping, th
 
 ## Paper Figure
 
-This stage corresponds to Figure 10c in the paper.
+This stage corresponds to Figure 9c in the paper.
 
 ## Public Contents
 
@@ -30,11 +30,11 @@ source .zsim-env
 
 ## Intended Claim
 
-This stage is the closest-to-hardware Ramulator result in the current paper flow. Relative to Figure 10a, it combines the realistic NoC and the prefetcher on top of the corrected interface and address mapping.
+This stage is the closest-to-hardware Ramulator result in the current paper flow. Relative to Figure 9a, it combines the realistic NoC and the prefetcher on top of the corrected interface and address mapping.
 
 ## Reproduction Note
 
-This folder contains the combined address-mapping, NoC, and prefetcher configuration used for Figure 10c. The `06-noc` folder contains the preceding NoC-only stage.
+This folder contains the combined address-mapping, NoC, and prefetcher configuration used for Figure 9c. The `06-noc` folder contains the preceding NoC-only stage.
 
 ## Raw Results
 

@@ -39,7 +39,7 @@ The summary reports mean, mean-absolute, and maximum-absolute deltas in both nat
 ```bash
 ./scripts/compare-results.sh <stage-a> <stage-b>
 # Example:
-./scripts/compare-results.sh 01-baseline 04-correct-freq
+./scripts/compare-results.sh 01-baseline 04-memory-model
 ```
 
 ### `download-raw.sh`
@@ -75,7 +75,7 @@ source .zsim-env
 
 **Compare two stages** (works against committed CSVs or freshly generated ones):
 ```bash
-./scripts/compare-results.sh 01-baseline 04-correct-freq
+./scripts/compare-results.sh 01-baseline 04-memory-model
 ```
 
 -> *For details on `runner.sh`, `run-one.sh`, and the plotting pipeline see [`experiments/README.md`](../experiments/README.md).*

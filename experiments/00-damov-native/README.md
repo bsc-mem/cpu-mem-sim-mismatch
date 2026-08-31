@@ -4,7 +4,8 @@ This experiment preserves the existing system-agnostic seed that was already pre
 
 ## Paper Figure
 
-This stage does not correspond to a main paper figure. It provides the DAMOV native reference setup.
+This stage corresponds to the original-DAMOV evaluation in Appendix A,
+Figure 13.
 
 ## Current Contents
 
@@ -31,7 +32,13 @@ From the repository root:
 ./setup.sh --build-damov
 source .zsim-env
 ./experiments/runner.sh 00-damov-native
+./experiments/plot.py experiments/00-damov-native/test-raw \
+  --config-dir experiments/00-damov-native
 ```
+
+By default, the plotting command writes its processed CSV and three Figure 13
+views under `test-output/00-damov-native/` without modifying the committed
+results.
 
 ## Raw Results
 
