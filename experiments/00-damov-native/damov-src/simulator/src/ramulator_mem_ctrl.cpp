@@ -341,10 +341,10 @@ uint64_t Ramulator::access(MemReq& req) {
 
 uint32_t Ramulator::tick(uint64_t cycle) {
   // REMOVE comments for clock divider (i.e., memory clock is different from host clock)
-  // if((tickCounter % freqRatio) == 0){
+  //if((tickCounter % freqRatio) == 0){
   wrapper->tick();
-  // }
-  tickCounter++;
+  //}
+  //tickCounter++;
 
   if(overflowQueue.size() > 0){
     RamulatorAccEvent *ev = overflowQueue.front();

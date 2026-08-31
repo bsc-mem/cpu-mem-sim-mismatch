@@ -30,9 +30,11 @@ We point out next to the repository structure and some important folders and fil
 ```
 .
 +-- README.md
-+-- get_workloads.sh
 +-- simulator/
 |   +-- command_files/
+|   +-- libconfig/
+|   +-- pin/
+|   +-- ramulator/
 |   +-- ramulator-configs/
 |   +-- scripts/
 |   +-- src/
@@ -47,48 +49,18 @@ Our framework requires both ZSim and Ramulator dependencies.
 * We use [lrztar](https://github.com/ckolivas/lrzip) to compress files.  
 
 ### Step 1: Installing the Simulator
-In this artifact, DAMOV-SIM uses the repository-level dependency resolver instead
-of vendoring Pin and Ramulator under `damov-src`. To install the simulator from
-the repository root:
+To install the simulator from the repository root:
 ```
 ./setup.sh
 ./setup.sh --build-damov
 ```
 
-### Step 2: Downloading the Workloads
-To download the workloads:
-
-```
-sh get_workloads.sh
-```
-
-The `get_workloads.sh` script will download all workloads. The script stores the workloads under the `./workloads` folder.
-
-In case the `get_workloads.sh` script does not work as expected (e.g., due to the user reaching Mega's maximum download quota), one can get the workloads directly from the following link: https://mega.nz/file/Mz51xJyY#J_ai3_Pl5kVvFETurKmBuMIrOagUK4sadyahOzUYQVE 
-
-Please, note that the workload folder requires around 6 GB of storage.
-
-The `./workloads` folder has the following structure:
-```
-.
-+-- workloads/
-|   +-- Darknet/
-|   +-- GASE-master/
-|   +-- PolyBench-ACC/
-|   +-- STREAM/
-|   +-- bwa/
-|   +-- chai-cpu/
-|   +-- hardware-effects/
-|   +-- hpcc/
-|   +-- hpcg/
-|   +-- ligra/
-|   +-- multicore-hashjoins-0.1/
-|   +-- parboil/
-|   +-- parsec-3.0/
-|   +-- phoenix/
-|   +-- rodinia_3.1/
-
-```
+### Step 2: Preparing the Artifact Workloads
+This embedded DAMOV source tree does not include the original DAMOV workload
+downloader or its approximately 6 GB workload collection. Experiment 00 uses
+the repository-level workloads under the project-root `benchmarks/`. Running
+`./setup.sh --build-damov` also prepares the local `traffic_gen` executable used
+by this experiment.
 
 
 ## The DAMOV Benchmark Suite

@@ -25,3 +25,4 @@
 **/*.pyc
 **/tags
 simulator/ramulator/ramulator
+!/simulator/pin/**

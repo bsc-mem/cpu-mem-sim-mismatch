@@ -6,7 +6,6 @@ SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_REAL")" && pwd -P)"
 EXPERIMENT_DIR="$(cd "$SCRIPT_DIR/.." && pwd -P)"
 REPO_ROOT="$(cd "$EXPERIMENT_DIR/../.." && pwd -P)"
 SIMULATOR_DIR="$EXPERIMENT_DIR/damov-src/simulator"
-ENV_FILE="$REPO_ROOT/.zsim-env"
 DAMOV_BENCH_DIR="$EXPERIMENT_DIR/benchmarks"
 DAMOV_TRAFFIC_GEN_DIR="$DAMOV_BENCH_DIR/traffic_gen"
 DAMOV_TRAFFIC_GEN="$DAMOV_TRAFFIC_GEN_DIR/traffic_gen.x"
@@ -15,13 +14,6 @@ if [[ ! -d "$SIMULATOR_DIR" ]]; then
   echo "Missing DAMOV simulator directory: $SIMULATOR_DIR" >&2
   exit 1
 fi
-
-if [[ ! -f "$ENV_FILE" ]]; then
-  echo "Missing $ENV_FILE; generating it with scripts/setup-env.sh..."
-  "$REPO_ROOT/scripts/setup-env.sh"
-fi
-
-source "$ENV_FILE"
 
 echo "Building DAMOV native simulator from: $SIMULATOR_DIR"
 (

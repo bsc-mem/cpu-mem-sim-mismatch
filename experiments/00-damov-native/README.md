@@ -11,11 +11,16 @@ This stage does not correspond to a main paper figure. It provides the DAMOV nat
 - original config files
 - shared benchmark binaries are expected from `../../benchmarks/`
 - shared experiment entrypoints are available in `../runner.sh`, `../run-one.sh`, and `../plot.py`
-- DAMOV native simulator builds use `.zsim-env` for shared `PINPATH` and `RAMULATORPATH`
+- DAMOV native simulator builds use DAMOV's own vendored Pin and Ramulator trees
 
-## DAMOV Source Changes
+## Changes from Original DAMOV
 
-The DAMOV simulator logic is intentionally kept unchanged for this artifact. The local updates are limited to build and portability plumbing: the SCons scripts were updated to run with Python 3, syscall handling was refreshed for newer Ubuntu releases, and DAMOV now reuses the root project dependencies resolved by `setup.sh` (`PINPATH` and `RAMULATORPATH`) instead of duplicating Pin and Ramulator source trees under `damov-src`.
+The DAMOV simulator remains structurally independent from the paper simulator. Its dependencies are included under `damov-src/simulator`, following the layout of DAMOV revision `7a2147b73aa80bc2d9ce928d533adefceafb5e3f`:
+
+- **Pin:** The complete Pin tree is vendored without changes.
+- **Ramulator:** The complete DAMOV Ramulator tree is vendored. Most files are unchanged; the local modifications are mainly for obtaining per-core memory statistics. They pass a configurable list of tracked cores from zsim to Ramulator and report each tracked core's average read latency, write latency, queue time, and interval between issued requests. The existing latency subtraction is also guarded against unsigned underflow, and statistics-file opening reports an error instead of immediately asserting. These changes do not modify Ramulator's memory standards, timing constraints, address mapping, scheduling policy, row policy, refresh behavior, or request ordering.
+
+The build scripts use these local dependency trees instead of downloading or resolving shared Pin and Ramulator installations. The other maintained DAMOV changes provide Python 3/build portability, syscall compatibility, and support for modern glibc versions.
 
 ## Build and Run
 

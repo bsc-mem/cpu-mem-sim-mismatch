@@ -1,8 +1,8 @@
 # Artifact Build Note
 
 From the repository root, run `./setup.sh` followed by
-`./setup.sh --build-damov`. The upstream ZSim setup notes below do not describe
-the shared Pin and Ramulator paths used by this artifact.
+`./setup.sh --build-damov`. This artifact keeps Pin, Ramulator, and libconfig
+under this simulator directory, following DAMOV's original dependency layout.
 
 zsim
 ====
