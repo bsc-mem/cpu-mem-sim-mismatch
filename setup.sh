@@ -13,7 +13,7 @@
 #   2. Generates .zsim-env (resolves all paths automatically, prompts only for Pin)
 #   3. Builds memory simulators (Ramulator, DRAMsim3, Ramulator2, DRAMSys)
 #   4. Builds persistent ZSim release variants for Ramulator and Ramulator2
-#   5. Builds the benchmarks (ptr_chase and traffic_gen)
+#   5. Builds the benchmarks (ptr_chase, traffic_gen, and STREAM kernels)
 
 set -euo pipefail
 
@@ -334,9 +334,18 @@ step "Step 5 / 5 — Building benchmarks"
 
 PTR_CHASE="$REPO_ROOT/benchmarks/ptr_chase/ptr_chase"
 TRAFFIC_GEN="$REPO_ROOT/benchmarks/traffic_gen/traffic_gen.x"
+STREAM_BINS=(
+    "$REPO_ROOT/benchmarks/stream-copy/testing/stream_omp"
+    "$REPO_ROOT/benchmarks/stream-scale/testing/stream_omp"
+    "$REPO_ROOT/benchmarks/stream-add/testing/stream_omp"
+    "$REPO_ROOT/benchmarks/stream-triad/testing/stream_omp"
+)
 
 [[ -x "$PTR_CHASE" ]]   && ok "ptr_chase built: $PTR_CHASE"   || err "ptr_chase build failed."
 [[ -x "$TRAFFIC_GEN" ]] && ok "traffic_gen built: $TRAFFIC_GEN" || err "traffic_gen build failed."
+for stream_bin in "${STREAM_BINS[@]}"; do
+    [[ -x "$stream_bin" ]] && ok "STREAM workload built: $stream_bin" || err "STREAM workload build failed: $stream_bin"
+done
 
 # ── Done ──────────────────────────────────────────────────────────────────────
 echo ""

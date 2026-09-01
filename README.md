@@ -46,20 +46,22 @@ Artifact archive: [10.5281/zenodo.21760831](https://doi.org/10.5281/zenodo.21760
 
 ## 1. Repository Architecture
 
-The repository is organized so that the source code is shared once, but is highly configurable via configuration files. This allows each experiment to independently activate or deactivate specific interface behaviors without duplicating the codebase.
+The repository is organized into four main directories: `simulator-source/`, `benchmarks/`, `experiments/`, and `scripts/`. Each directory contains a `README.md` with more details.
+The simulator source trees are already included in the repository, so no external downloads are needed to reproduce the experiments. The `setup.sh` script handles all dependency checks, builds, and environment generation. Different experiment stages are configured via the `experiments/` subdirectories, which contain the configuration files and scripts needed to run each stage. The `scripts/` directory contains repository-level automation helpers for setup, benchmark builds, result processing, and comparison.
+
 
 | Directory           | Purpose & Documentation                                                                                                                                                                                                                                                                              |
 | :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `simulator-source/` | **The Simulators.** Contains the modified ZSim source and the Ramulator, Ramulator2, DRAMsim3, and DRAMSys source trees used by the artifact. <br>-> _See [`simulator-source/README.md`](simulator-source/README.md) for dependency and build details._                                              |
-| `benchmarks/`       | **The Workloads.** Contains the pointer-chasing and traffic-generation benchmarks used to generate bandwidth-latency curves.                                                                                                                                                                         |
+| `benchmarks/`       | **The Workloads.** Contains the pointer-chasing, traffic-generation and stream benchmarks used to generate bandwidth-latency curves.                                                                                                                                                                         |
 | `experiments/`      | **The Configurations & Results.** One folder per paper stage. Runnable stages include `sb.cfg`. Committed outputs, when present, live under `processed/` and `figures/`. <br>-> _See [`experiments/README.md`](experiments/README.md) for details on the execution flow and shared run entrypoints._ |
 | `scripts/`          | **The Automation.** Repository-level helpers for environment setup, benchmark builds, result processing, and comparison. <br>-> _See [`scripts/README.md`](scripts/README.md) for the script catalog._                                                                                               |
 
-The processed figures and configuration files are kept in Git. Most raw simulator traces are released separately and are listed in the [raw-results table](#51-raw-results); experiment 00's raw results are committed directly under `experiments/00-damov-native/test-raw/`.
+The processed figures and configuration files are kept in Git. Most raw simulator traces are released separately and are listed in the [raw-results table](#51-raw-results); experiment 00's raw results are committed directly under `experiments/00-damov-native/test-raw/` and experiment 11's raw results are generated locally by the runner script.
 
 ---
 
-## 2. Environment Setup
+## 2. Environment Setup and Installation
 
 Install the host packages on Ubuntu or Debian:
 
@@ -84,11 +86,10 @@ This handles everything in sequence:
 1. Checks the compiler, CMake, SCons, binutils, libconfig++, and Python packages.
 2. Finds Pin 2.14 and HDF5 on the host or downloads the pinned bundles into `dependencies/`.
 3. Builds Ramulator, Ramulator2, DRAMsim3, and DRAMSys. Their source trees are already in this repository. DRAMSys and Ramulator2 fetch their CMake dependencies during the first build.
-4. Builds separate Ramulator and Ramulator2 ZSim binaries because one ZSim binary cannot link both backends.
-5. Builds `ptr_chase` and `traffic_gen`. Experiment 11 uses the tracked STREAM executables under `benchmarks/stream-*/testing/`.
+4. Builds separate Ramulator and Ramulator2 ZSim binaries.
+5. Builds `ptr_chase`, `traffic_gen`, and the four STREAM kernels used by Experiment 11.
 
-Setup writes `.zsim-env`, but it cannot change the parent shell. Source the file
-before running an experiment:
+Setup writes `.zsim-env` with the environment variables needed to run the experiments. The file can be sourced in a shell to set up the environment for running experiments.
 
 ```bash
 source .zsim-env

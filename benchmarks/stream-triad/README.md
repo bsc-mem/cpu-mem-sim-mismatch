@@ -16,6 +16,9 @@ The `testing` directory contains sample scripts to run the tests.
 
 ## Build
 
+The repository-level `./setup.sh` and `./scripts/build-benchmarks.sh` commands
+build this workload automatically. To build only STREAM Triad:
+
 From the repository root:
 
 ```bash

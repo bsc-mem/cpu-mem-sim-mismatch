@@ -24,7 +24,9 @@ source .zsim-env
 This must be run once before building ZSim or running any experiment. See [`simulator-source/README.md`](../simulator-source/README.md) for dependency details.
 
 ### `build-benchmarks.sh`
-Compiles the shared `ptr_chase` and `traffic_gen` benchmarks under `benchmarks/`. This must be run before any experiment can execute.
+Compiles the shared `ptr_chase` and `traffic_gen` benchmarks and the STREAM
+Copy, Scale, Add, and Triad workloads under `benchmarks/`. This must be run
+before any experiment can execute.
 
 This script is intended for the Linux environment used in the paper artifact. In particular, `ptr_chase` depends on `linux/perf_event.h`.
 

@@ -21,6 +21,7 @@ benchmarks/ptr_chase/arraygen
 benchmarks/ptr_chase/ptr_chase
 benchmarks/traffic_gen/build/
 benchmarks/traffic_gen/traffic_gen.x
+benchmarks/stream-*/testing/stream_omp
 benchmarks/stream-*/testing/output/
 .DS_Store
 ._*

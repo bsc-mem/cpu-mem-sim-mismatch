@@ -2,6 +2,7 @@
 set -euo pipefail
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "$script_dir/../.." && pwd)"
 print_plan=false
 
 case "${1:-}" in
@@ -12,6 +13,23 @@ case "${1:-}" in
         exit 1
         ;;
 esac
+
+if [[ "$print_plan" == false ]]; then
+    required_binaries=(
+        "$repo_root/benchmarks/ptr_chase/ptr_chase"
+        "$repo_root/benchmarks/stream-copy/testing/stream_omp"
+        "$repo_root/benchmarks/stream-scale/testing/stream_omp"
+        "$repo_root/benchmarks/stream-add/testing/stream_omp"
+        "$repo_root/benchmarks/stream-triad/testing/stream_omp"
+    )
+    for binary in "${required_binaries[@]}"; do
+        if [[ ! -x "$binary" ]]; then
+            echo "Missing benchmark executable: $binary" >&2
+            echo "Run ./scripts/build-benchmarks.sh from the repository root." >&2
+            exit 1
+        fi
+    done
+fi
 
 found_any=false
 

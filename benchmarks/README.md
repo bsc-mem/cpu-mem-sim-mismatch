@@ -12,28 +12,27 @@ Traffic-generator benchmark used to sweep read ratio and pause values while prod
 
 ### `stream-copy/`, `stream-scale/`, `stream-add/`, and `stream-triad/`
 
-Single-kernel STREAM executables used by Experiment 11. The repository tracks
-the executables under each `testing/` directory. Run that directory's `run.sh`
-to rebuild one from source.
+Single-kernel STREAM workloads used by Experiment 11. Their source and build
+scripts are tracked, while `testing/stream_omp` is generated locally.
 
 ## Build
 
-The repository setup builds pointer chase and the traffic generator:
+The repository setup builds pointer chase, the traffic generator, and all four
+STREAM workloads:
 
 ```bash
 ./setup.sh
 ```
 
-To rebuild all four Experiment 11 STREAM executables:
+To rebuild all shared benchmarks without rebuilding the simulators:
 
 ```bash
-(cd benchmarks/stream-copy/testing && ./run.sh)
-(cd benchmarks/stream-scale/testing && ./run.sh)
-(cd benchmarks/stream-add/testing && ./run.sh)
-(cd benchmarks/stream-triad/testing && ./run.sh)
+./scripts/build-benchmarks.sh
 ```
+
+Each STREAM workload can still be rebuilt individually by running its
+`testing/run.sh` script from that `testing/` directory.
 
 ## Design Philosophy
 
 These benchmarks are intentionally shared across all experiments to ensure consistency and comparability of results. The experiment folders do not duplicate workload source code; instead, they reference these shared implementations while varying only the simulator configuration and interface parameters.
-

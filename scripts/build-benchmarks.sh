@@ -20,4 +20,26 @@ fi
   make
 )
 
+stream_workloads=(stream-copy stream-scale stream-add stream-triad)
+for workload in "${stream_workloads[@]}"; do
+  testing_dir="$repo_root/benchmarks/$workload/testing"
+  run_script="$testing_dir/run.sh"
+  output="$testing_dir/stream_omp"
+
+  if [[ ! -f "$run_script" ]]; then
+    echo "Missing STREAM build script: $run_script" >&2
+    exit 1
+  fi
+
+  (
+    cd "$testing_dir"
+    bash ./run.sh
+  )
+
+  if [[ ! -x "$output" ]]; then
+    echo "Failed to build STREAM workload: $output" >&2
+    exit 1
+  fi
+done
+
 echo "Benchmarks built under $repo_root/benchmarks"
