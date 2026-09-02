@@ -4,22 +4,10 @@ This is the artifact repository of **“Integration, Enhancements and Evaluation
 
 This repository provides the modified ZSim source code and the Ramulator, Ramulator 2, DRAMsim3, and DRAMSys integrations evaluated in the paper. It also includes benchmark source code, processed results, and scripts for reproducing and comparing the experiments.
 
-## Paper Reference
+## Citation
 
-**Integration, Enhancements and Evaluation of Memory Simulators**
+If you find this study useful, please cite the following paper accepted in IISWC 2026.
 
-Authors:
-
-- Pouya Esmaili-Dokht — Barcelona Supercomputing Center; Universitat Politècnica de Catalunya
-- Arash Yadegari — Barcelona Supercomputing Center; Sharif University of Technology
-- Victor Xirau — Barcelona Supercomputing Center
-- Julian Pavon — Barcelona Supercomputing Center
-- Hamid Sarbazi-Azad — Sharif University of Technology; IPM
-- Adrián Cristal — Barcelona Supercomputing Center; Universitat Politècnica de Catalunya
-- Eduard Ayguadé — Universitat Politècnica de Catalunya; Barcelona Supercomputing Center
-- Petar Radojković — Barcelona Supercomputing Center
-
-Citation:
 
 ```bibtex
 @INPROCEEDINGS{esmaili:interface,
@@ -30,7 +18,6 @@ Citation:
 }
 ```
 
-Artifact archive: [10.5281/zenodo.21760831](https://doi.org/10.5281/zenodo.21760831). This is the Zenodo concept DOI, which resolves to the latest published artifact version; direct raw-data links below identify files in a specific version record.
 
 ## Table of Contents
 
@@ -217,9 +204,9 @@ The repository contains the configurations, scripts, processed CSV files, and fi
 | :-------------------------- | :-------------------------------------------------------------------------------------- | :--------------------------------- |
 | `00-damov-native`           | [`experiments/00-damov-native/test-raw/`](experiments/00-damov-native/test-raw/)        | `N/A`                              |
 | `01-baseline`               | [Download](https://zenodo.org/records/21760832/files/01-baseline.zip?download=1)        | `38f1cf9f9a1f6f3c2adaec688fabcf4d` |
-| `02-clock-scaling`          | `TODO: publish reordered-stage raw archive`                                             | `TODO`                             |
-| `03-correct-freq`           | `TODO: publish reordered-stage raw archive`                                             | `TODO`                             |
-| `04-memory-model`           | `TODO: publish reordered-stage raw archive`                                             | `TODO`                             |
+| `02-clock-scaling`          | [Download](https://zenodo.org/records/22261221/files/02-clock-scaling.zip?download=1)                                              | `28c05fc89e76a8a433b8f5acba0cc38b`                             |
+| `03-correct-freq`           | [Download](https://zenodo.org/records/22261221/files/03-correct-freq.zip?download=1)                                            | `f4a626c44abb50136d2c0acb73540942 `                             |
+| `04-memory-model`           | [Download](https://zenodo.org/records/22261221/files/04-memory-model.zip?download=1)                                             | `c29c8f59c595386cd86740750c4d5cb3 `                             |
 | `05-address-mapping`        | [Download](https://zenodo.org/records/21760832/files/05-address-mapping.zip?download=1) | `74bb3d8d63cf43ddd06929b9dc27a7f9` |
 | `06-noc`                    | [Download](https://zenodo.org/records/21760832/files/06-noc.zip?download=1)             | `5a6fdeb0af978f8eaf4f355e46453a54` |
 | `07-prefetcher`             | [Download](https://zenodo.org/records/21760832/files/07-prefetcher.zip?download=1)      | `1e4fd36b3c25af7603f2e817c2448980` |

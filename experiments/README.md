@@ -38,9 +38,9 @@ locally.
 | :--- | :--- | :--- |
 | `00-damov-native` | [`00-damov-native/test-raw/`](00-damov-native/test-raw/) | `N/A` |
 | `01-baseline` | [Download](https://zenodo.org/records/21760832/files/01-baseline.zip?download=1) | `38f1cf9f9a1f6f3c2adaec688fabcf4d` |
-| `02-clock-scaling` | `TODO: publish reordered-stage raw archive` | `TODO` |
-| `03-correct-freq` | `TODO: publish reordered-stage raw archive` | `TODO` |
-| `04-memory-model` | `TODO: publish reordered-stage raw archive` | `TODO` |
+| `02-clock-scaling`          | [Download](https://zenodo.org/records/22261221/files/02-clock-scaling.zip?download=1)                                              | `28c05fc89e76a8a433b8f5acba0cc38b`                             |
+| `03-correct-freq`           | [Download](https://zenodo.org/records/22261221/files/03-correct-freq.zip?download=1)                                            | `f4a626c44abb50136d2c0acb73540942 `                             |
+| `04-memory-model`           | [Download](https://zenodo.org/records/22261221/files/04-memory-model.zip?download=1)                                             | `c29c8f59c595386cd86740750c4d5cb3 `    
 | `05-address-mapping` | [Download](https://zenodo.org/records/21760832/files/05-address-mapping.zip?download=1) | `74bb3d8d63cf43ddd06929b9dc27a7f9` |
 | `06-noc` | [Download](https://zenodo.org/records/21760832/files/06-noc.zip?download=1) | `5a6fdeb0af978f8eaf4f355e46453a54` |
 | `07-prefetcher` | [Download](https://zenodo.org/records/21760832/files/07-prefetcher.zip?download=1) | `1e4fd36b3c25af7603f2e817c2448980` |
