@@ -22,5 +22,5 @@ source .zsim-env
 
 | Item | Value |
 | :--- | :--- |
-| Raw archive | `TODO: publish reordered-stage raw archive` |
-| MD5SUM | `TODO` |
+| Raw archive | `https://zenodo.org/records/22261221/files/02-clock-scaling.zip?download=1` |
+| MD5SUM | `28c05fc89e76a8a433b8f5acba0cc38b` |

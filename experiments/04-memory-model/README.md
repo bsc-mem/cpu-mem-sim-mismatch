@@ -22,5 +22,5 @@ source .zsim-env
 
 | Item | Value |
 | :--- | :--- |
-| Raw archive | `TODO: publish reordered-stage raw archive` |
-| MD5SUM | `TODO` |
+| Raw archive | `https://zenodo.org/records/22261221/files/04-memory-model.zip?download=1` |
+| MD5SUM | `c29c8f59c595386cd86740750c4d5cb3` |

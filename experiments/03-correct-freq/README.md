@@ -21,5 +21,5 @@ source .zsim-env
 
 | Item | Value |
 | :--- | :--- |
-| Raw archive | `TODO: publish reordered-stage raw archive` |
-| MD5SUM | `TODO` |
+| Raw archive | `https://zenodo.org/records/22261221/files/03-correct-freq.zip?download=1` |
+| MD5SUM | `f4a626c44abb50136d2c0acb73540942` |
